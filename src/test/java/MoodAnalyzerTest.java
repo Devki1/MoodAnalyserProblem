@@ -2,19 +2,12 @@ import org.junit.Assert;
 import org.junit.Test;
 public class MoodAnalyzerTest
 {
-    MoodAnalyzer moodAnalyzer = new MoodAnalyzer();
     @Test
-    //Test case for Sad mood
-    public void givenMessage_WhenProper_RespondsSadMood()
+    public void givenMessage_WhenProper_ShouldReturnSadMood()
     {
-     String  result = moodAnalyzer.analyzeMood("I am a Sad Mood");
+        MoodAnalyzer moodAnalyzer = new MoodAnalyzer("I am a Sad Mood");
+
+        String  result = moodAnalyzer.analyzeMood();
      Assert.assertEquals("SAD",result);
-    }
-    @Test
-    //Check test case for Happy mood  analyzer
-    public void givenMessage_WhenProper_RespondsHappyMood()
-    {
-        String result = moodAnalyzer.analyzeMood("I am a any Mood");
-        Assert.assertEquals("HAPPY",result);
     }
 }
