@@ -1,8 +1,14 @@
 
 public class MoodAnalyzer
 {
-    public static void main(String[] args)
+    public String analyzeMood(String message)
     {
-        System.out.println("Welcome in MoodAnalyzer");
+        if(message.equals("I am a Sad Mood"))
+        {
+            return "SAD";
+        }
+        else
+            return "HAPPY";
     }
 }
+
