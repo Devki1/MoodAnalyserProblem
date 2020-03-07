@@ -1,18 +1,24 @@
-import javax.swing.*;
-public class MoodAnalyzer {
+public class MoodAnalyzer
+{
     private String message;
     //NO argument parameters constructor
-    MoodAnalyzer() {
+    MoodAnalyzer()
+    {
+
     }
     //Parameters constructor
-    MoodAnalyzer(String message) {
+    MoodAnalyzer(String message)
+    {
         this.message = message;
     }
-    public String analyzeMood() {
-        if (message.equals("I am a Sad Mood")) {
+    public String analyzeMood()
+    {
+        if (message.contains("Sad"))
+        {
             message = "SAD";
         }
-        else if (message.equals("I am in Happy Mood")) {
+        else if (message.contains("Happy"))
+        {
              message = "HAPPY";
         }
         return message;
