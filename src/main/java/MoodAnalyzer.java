@@ -10,12 +10,12 @@ public class MoodAnalyzer {
         this.message = message;
     }
 
-    public String analyzeMood(String message) {
+    public String analyzeMood(String message) throws MoodAnalysisException {
         this.message = message;
         return analyzeMood();
     }
 
-    public String analyzeMood() {
+    public String analyzeMood() throws MoodAnalysisException {
         try {
             if (message.contains("Sad"))
                 return "SAD";
