@@ -22,11 +22,22 @@ public class MoodAnalyzerTest {
 
     @Test
     public void givenMoodAnalyzer_WhenMessageNull_ShouldThrowsException() {
-        MoodAnalyzer moodAnalyzer = new MoodAnalyzer(null);
         try {
+            MoodAnalyzer moodAnalyzer = new MoodAnalyzer(null);
             String results = moodAnalyzer.analyzeMood();
         } catch (MoodAnalysisException e) {
-            Assert.assertEquals("please enter a valid mood:", e.getMessage());
+            Assert.assertEquals("Please enter a valid mood", e.getMessage());
         }
+    }
+
+    @Test
+    public void givenMoodAnalyzer_WhenMessageEmpty_ShouldThrowsException() {
+        try {
+            MoodAnalyzer moodAnalyzer = new MoodAnalyzer();
+            String results = moodAnalyzer.analyzeMood(" ");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals("Please provide proper message", e.getMessage());
+        }
+
     }
 }
