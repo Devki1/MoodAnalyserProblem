@@ -5,13 +5,13 @@ public class MoodAnalysisException extends Exception {
 
     ExceptionType type;
 
-    public MoodAnalysisException(ExceptionType type, String message) {
+    public MoodAnalysisException( String message,ExceptionType type) {
         super(message);
         this.type = type;
     }
 
-    public MoodAnalysisException(Throwable cause, ExceptionType type) {
-        super(cause);
+    public MoodAnalysisException(ExceptionType type,String message) {
+        super(message);
         this.type = type;
     }
 }
