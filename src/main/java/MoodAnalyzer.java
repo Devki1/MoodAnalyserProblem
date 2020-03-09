@@ -1,27 +1,29 @@
-public class MoodAnalyzer
-{
+public class MoodAnalyzer {
     private String message;
-    //NO argument parameters constructor
-    MoodAnalyzer()
-    {
 
+    //NO argument parameters constructor
+    MoodAnalyzer() {
     }
+
     //Parameters constructor
-    MoodAnalyzer(String message)
-    {
+    MoodAnalyzer(String message) {
         this.message = message;
     }
-    public String analyzeMood()
-    {
-        if (message.contains("Sad"))
-        {
-            message = "SAD";
+
+    public String analyzeMood(String message) {
+        this.message = message;
+        return analyzeMood();
+    }
+
+    public String analyzeMood() {
+        try {
+            if (message.contains("Sad"))
+                return "SAD";
+            else
+                return "HAPPY";
+        } catch (NullPointerException e) {
+            return "HAPPY";
         }
-        else if (message.contains("Happy"))
-        {
-             message = "HAPPY";
-        }
-        return message;
     }
 }
 
