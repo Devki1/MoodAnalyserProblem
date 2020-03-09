@@ -6,7 +6,7 @@ public class MoodAnalyzer {
     }
 
     //Parameters constructor
-    MoodAnalyzer(String message) {
+    public MoodAnalyzer(String message) {
         this.message = message;
     }
 
@@ -17,12 +17,15 @@ public class MoodAnalyzer {
 
     public String analyzeMood() throws MoodAnalysisException {
         try {
+            if (message.length() == 0) {
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_EMPTY, "Please provide proper message");
+            }
             if (message.contains("Sad"))
                 return "SAD";
             else
                 return "HAPPY";
         } catch (NullPointerException e) {
-            return "HAPPY";
+            throw new MoodAnalysisException("Please enter a valid mood", MoodAnalysisException.ExceptionType.ENTERED_NULL);
         }
     }
 }
