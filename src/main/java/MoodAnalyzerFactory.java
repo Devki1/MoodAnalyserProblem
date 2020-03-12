@@ -2,14 +2,14 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyzerFactory {
-    public static MoodAnalyzer createMoodAanayzerObject() {
+    public static MoodAnalyzer createMoodAanayzerObject() throws MoodAnalysisException {
         try {
-            Class<?> moodAnalyzer = Class.forName("MoodAnalyzer");
+            Class<?> moodAnalyzer = Class.forName("MoodAnalyzerMood");
             Constructor<?> moodAnalysisConstructor = moodAnalyzer.getConstructor();
             Object moodObject = moodAnalysisConstructor.newInstance();
             return (MoodAnalyzer) moodObject;
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, "Class not found ");
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
