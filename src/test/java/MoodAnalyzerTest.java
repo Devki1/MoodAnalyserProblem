@@ -47,10 +47,19 @@ public class MoodAnalyzerTest {
     }
 
     @Test
-    public void givenMoodAnalyzer_WhenProper_ShouldReturnObject() {
+    public void givenMoodAnalyzer_WhenProper_ShouldReturnObject() throws MoodAnalysisException {
         moodAnalyzer = new MoodAnalyzer();
         MoodAnalyzer moodAanayzerObject = MoodAnalyzerFactory.createMoodAanayzerObject();
         boolean result = moodAnalyzer.equals(moodAanayzerObject);
         Assert.assertEquals(true, result);
+    }
+
+    @Test
+    public void givenClassName_WhenImproper_ShouldthrowMoodAnalysis() {
+        try {
+            MoodAnalyzer moodAnalyzerObject = MoodAnalyzerFactory.createMoodAanayzerObject();
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
+        }
     }
 }
