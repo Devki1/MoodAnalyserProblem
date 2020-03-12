@@ -1,8 +1,11 @@
+import java.util.Objects;
+
 public class MoodAnalyzer {
     private String message;
 
     //NO argument parameters constructor
-    MoodAnalyzer() {
+    public MoodAnalyzer() {
+
     }
 
     //Parameters constructor
@@ -25,8 +28,21 @@ public class MoodAnalyzer {
             else
                 return "HAPPY";
         } catch (NullPointerException e) {
-            throw new MoodAnalysisException("Please enter a valid mood", MoodAnalysisException.ExceptionType.ENTERED_NULL);
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_NULL, "Please provide proper message");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MoodAnalyzer that = (MoodAnalyzer) o;
+        return Objects.equals(message, that.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message);
     }
 }
 
