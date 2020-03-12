@@ -1,7 +1,7 @@
 public class MoodAnalysisException extends Exception {
     enum ExceptionType {
         ENTERED_NULL, ENTERED_EMPTY,
-        NO_SUCH_CLASS
+        NO_SUCH_CLASS, NO_SUCH_METHOD
     }
 
     ExceptionType type;
@@ -10,7 +10,4 @@ public class MoodAnalysisException extends Exception {
         super(message);
         this.type = type;
     }
-
-
 }
-
