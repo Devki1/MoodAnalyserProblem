@@ -3,12 +3,11 @@ import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.concurrent.Callable;
 
 public class MoodAnalyzerTest {
     MoodAnalyzer moodAnalyzer;
     String result;
-    String message = "I am in a Happy Mood";
+    String message = "I am in a happy mood";
 
     @Test
     public void givenMessage_WhenProper_ShouldReturnSadMood() throws MoodAnalysisException {
@@ -52,7 +51,7 @@ public class MoodAnalyzerTest {
     public void givenMoodAnalyser_WhenProper_ShouldReturnObject() throws MoodAnalysisException, IllegalAccessException, InstantiationException, InvocationTargetException {
         MoodAnalyzer moodAnalyzer = new MoodAnalyzer();
         Constructor<?> moodAnalyserConstructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer");
-        MoodAnalyzer moodAnalyserObject = MoodAnalyzerFactory.createMoodAnalyserObject(moodAnalyserConstructor);
+        MoodAnalyzer moodAnalyserObject = MoodAnalyzerFactory.createMoodAnalyserObject(moodAnalyserConstructor, "I am in a happy mood");
         boolean result = moodAnalyzer.equals(moodAnalyserObject);
         Assert.assertEquals(true, result);
     }
@@ -73,6 +72,15 @@ public class MoodAnalyzerTest {
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
         }
+    }
+
+    @Test
+    public void givenMoodAnalysisWithParametrizedConstructor_WhenProper_ShouldReturnObject() throws MoodAnalysisException, IllegalAccessException, InstantiationException, InvocationTargetException {
+        moodAnalyzer = new MoodAnalyzer("I am in a happy mood");
+        Constructor<?> moodAnalyzerConstructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer", String.class);
+        MoodAnalyzer moodAnalyzerObject = MoodAnalyzerFactory.createMoodAnalyserObject(moodAnalyzerConstructor, "I am in a happy mood");
+        boolean result = moodAnalyzer.equals(moodAnalyzerObject);
+        Assert.assertEquals(true, result);
     }
 }
 
