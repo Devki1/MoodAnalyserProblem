@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.Callable;
 
 public class MoodAnalyzerTest {
     MoodAnalyzer moodAnalyzer;
@@ -89,6 +90,15 @@ public class MoodAnalyzerTest {
             Constructor<?> moodAnalyserConstructor = MoodAnalyzerFactory.getConstructor("Analyser", String.class);
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
+        }
+    }
+
+    @Test
+    public void givenMoodAnalysisWithParametrizedConstructor_WhenConstructorNotProper_ShouldThrowMoodAnalysisException() {
+        try {
+            Constructor<?> moodAnalyserConstructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer", Integer.class, String.class);
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
         }
     }
 }
