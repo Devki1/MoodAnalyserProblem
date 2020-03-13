@@ -1,8 +1,10 @@
+import org.graalvm.compiler.lir.alloc.trace.lsra.TraceLinearScanLifetimeAnalysisPhase;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 
 public class MoodAnalyzerTest {
@@ -100,5 +102,13 @@ public class MoodAnalyzerTest {
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
         }
+    }
+
+    @Test
+    public void givenHappyMessage_WhenProper_ShouldReturnHappyMood() throws MoodAnalysisException, IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
+        Constructor<?> moodAnalyserConstructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer", String.class);
+        MoodAnalyzer moodAnalyserObject = MoodAnalyzerFactory.createMoodAnalyserObject(moodAnalyserConstructor, "I am in happy mood");
+        Object result = MoodAnalyzerFactory.invokeMethod(moodAnalyserObject, "analyzeMood");
+        Assert.assertEquals("HAPPY", result);
     }
 }
