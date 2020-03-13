@@ -2,23 +2,19 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyzerFactory {
-    public static MoodAnalyzer createMoodAanayzerObject() throws MoodAnalysisException {
+    public static Constructor<?> getConstructor(String className, Class<?>... param) throws MoodAnalysisException {
+        Class<?> moodAnalyserClass;
         try {
-            Class<?> moodAnalyzer = Class.forName("MoodAnalyzer");
-            Constructor<?> moodAnalysisConstructor = moodAnalyzer.getConstructor();
-            Object moodObject = moodAnalysisConstructor.newInstance();
-            return (MoodAnalyzer) moodObject;
+            moodAnalyserClass = Class.forName(className);
+            return moodAnalyserClass.getConstructor(param);
         } catch (ClassNotFoundException e) {
-            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, "Class not found");
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.getMessage());
         } catch (NoSuchMethodException e) {
-            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, "Method not found");
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.getMessage());
         }
-        return null;
+    }
+
+    public static MoodAnalyzer createMoodAnalyserObject(Constructor<?> moodAnalyserConstructor) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+        return (MoodAnalyzer) moodAnalyserConstructor.newInstance();
     }
 }
