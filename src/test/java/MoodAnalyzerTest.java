@@ -111,7 +111,6 @@ public class MoodAnalyzerTest {
         Object result = MoodAnalyzerFactory.invokeMethod(moodAnalyserObject, "analyzeMood");
         Assert.assertEquals("HAPPY", result);
     }
-
     @Test
     public void givenHappyMessage_WhenImproperMethod_ShouldThrowMoodAnalysisException() throws IllegalAccessException, InstantiationException, InvocationTargetException {
         try {
@@ -121,6 +120,16 @@ public class MoodAnalyzerTest {
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.type);
         }
-        ;
     }
-}
+
+    @Test
+    public void givenHappyMessageWithReflection_ShouldReturnHappy() throws IllegalAccessException, InstantiationException, InvocationTargetException, MoodAnalysisException, NoSuchFieldException {
+        Constructor<?> moodAnalyserConstructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer");
+        MoodAnalyzer moodAnalyserObject = MoodAnalyzerFactory.createMoodAnalyserObject(moodAnalyserConstructor);
+        MoodAnalyzerFactory.setFieldValue(moodAnalyserObject, "message","I am in happy mood");
+        Object result = MoodAnalyzerFactory.invokeMethod(moodAnalyserObject, "analyzeMood");
+        Assert.assertEquals("HAPPY", result);
+    }
+
+
+    }
