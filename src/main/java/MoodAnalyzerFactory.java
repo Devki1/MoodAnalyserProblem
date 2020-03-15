@@ -27,13 +27,20 @@ public class MoodAnalyzerFactory {
             method = moodAnalyzerObject.getClass().getMethod(methodName);
             Object result = method.invoke(moodAnalyzerObject);
         } catch (NoSuchMethodException e) {
-            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, "Method not found");
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.getMessage());
         }
         return method.invoke(moodAnalyzerObject);
     }
 
-    public static void setFieldValue(MoodAnalyzer moodAnalyzerObject, String fieldName, String fieldValue) throws MoodAnalysisException, IllegalAccessException, NoSuchFieldException {
-        Field field = moodAnalyzerObject.getClass().getField(fieldName);
-        field.set(moodAnalyzerObject, fieldValue);
+    public static void setFieldValue(MoodAnalyzer moodAnalyzerObject, String fieldName, String fieldValue) throws MoodAnalysisException, IllegalAccessException {
+        Field field = null;
+        try {
+            field = moodAnalyzerObject.getClass().getField(fieldName);
+            field.set(moodAnalyzerObject, fieldValue);
+        } catch (NoSuchFieldException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_FIELD, e.getMessage());
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 }
