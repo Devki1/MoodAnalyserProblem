@@ -5,7 +5,6 @@ public class MoodAnalyzer {
 
     //NO argument parameters constructor
     public MoodAnalyzer() {
-
     }
 
     //Parameters constructor
@@ -18,6 +17,7 @@ public class MoodAnalyzer {
         return analyzeMood();
     }
 
+    //Logic tO analyse mood of user
     public String analyzeMood() throws MoodAnalysisException {
         try {
             if (message.length() == 0) {
@@ -32,6 +32,7 @@ public class MoodAnalyzer {
         }
     }
 
+    //Equal method are used to check both the object are equal or not
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
