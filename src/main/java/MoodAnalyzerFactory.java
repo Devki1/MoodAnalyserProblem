@@ -37,10 +37,12 @@ public class MoodAnalyzerFactory {
         try {
             field = moodAnalyzerObject.getClass().getField(fieldName);
             field.set(moodAnalyzerObject, fieldValue);
+
         } catch (NoSuchFieldException e) {
             throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_FIELD, e.getMessage());
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_NULL, e.getMessage());
+            //e.printStackTrace();
         }
     }
 }
