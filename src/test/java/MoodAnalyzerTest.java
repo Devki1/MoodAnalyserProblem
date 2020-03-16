@@ -133,7 +133,7 @@ public class MoodAnalyzerTest {
     }
 
     @Test
-    public void setFieldVValue_WhenImproper_ShouldThrowExceptionWithNoSuchField() throws IllegalAccessException, InstantiationException, InvocationTargetException, ClassNotFoundException {
+    public void setFieldVValue_WhenImproper_ShouldThrowExceptionWithNoSuchField() throws IllegalAccessException, InstantiationException, InvocationTargetException {
         try {
             Constructor<?> moodAnalyserConstructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer");
             MoodAnalyzer moodAnalyzerObject = MoodAnalyzerFactory.createMoodAnalyserObject(moodAnalyserConstructor);
@@ -142,4 +142,16 @@ public class MoodAnalyzerTest {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_FIELD, e.type);
         }
     }
+
+    @Test
+    public void settingNullMessage_WithReflection_ShouldThrowException() throws IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchFieldException {
+        try {
+            Constructor<?> moodAnalyserConstructor = MoodAnalyzerFactory.getConstructor("MoodAnalyzer");
+            MoodAnalyzer moodAnalyzerObject = MoodAnalyzerFactory.createMoodAnalyserObject(moodAnalyserConstructor);
+            MoodAnalyzerFactory.setFieldValue(moodAnalyzerObject, "message", null);
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_NULL, e.type);
+        }
+    }
 }
+
