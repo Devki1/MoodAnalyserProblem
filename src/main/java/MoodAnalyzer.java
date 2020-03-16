@@ -1,9 +1,9 @@
 import java.util.Objects;
 
 public class MoodAnalyzer {
-    private String message;
+    public String message;
 
-    //NO argument parameters constructor
+    //NO argument constructor
     public MoodAnalyzer() {
     }
 
@@ -17,7 +17,7 @@ public class MoodAnalyzer {
         return analyzeMood();
     }
 
-    //Logic tO analyse mood of user
+    //Overloaded analyzeMood method
     public String analyzeMood() throws MoodAnalysisException {
         try {
             if (message.length() == 0) {
